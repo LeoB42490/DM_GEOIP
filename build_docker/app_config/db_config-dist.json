@@ -1,0 +1,8 @@
+{
+    "driver": "mysql",
+    "host": "your_server",
+    "dbname": "your_database",
+    "charset": "utf8",
+    "username": "your_user",
+    "password": "your_password"
+}
