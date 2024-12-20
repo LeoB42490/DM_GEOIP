@@ -17,18 +17,39 @@ $sClassPath = $sBasepath . 'src/';
 require_once($sClassPath . "autoload.php");
 
 // Récupération de l'adresse IP
-$user_ip = getUserIP(); // Mettre a la place IP japonais ou fr pour teste
-$user_Ip_INT = ip2Int($user_ip);
-
-openDatabase();
-$estFrançais = ipFrance($user_Ip_INT);
-closeDatabase();
-
-if ($estFrançais) {
-    header("Location: home.php");
-} else {
-    header("HTTP/1.1 403 Forbidden");
-    include("code403.php");
+$user_ip = getUserIP(); // Mettre a la place IP française ou autre pays pour teste
+// ip française : 192.166.204.0
+// ip non française : 192.166.247.0
+if (filter_var($user_ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) 
+{
+    //echo "ipv4";
+    $user_Ip_INT = ip2Int($user_ip);
+    openDatabase();
+    $estFrançais = ipFrance($user_Ip_INT);
+    closeDatabase();
+    if ($estFrançais)
+    {
+        header("Location: home.php");
+    } else
+    {
+        header("HTTP/1.1 403 Forbidden");
+        include("code403.php");
+    }
+} elseif (filter_var($user_ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) 
+{
+    $user_Ip_INT = getipnum($user_ip);
+    openDatabase();
+    $estFrançais = ipFrance6($user_Ip_INT);
+    echo $estFrançais;
+    closeDatabase();
+    if ($estFrançais)
+    {
+        header("Location: home.php");
+    } else
+    {
+        header("HTTP/1.1 403 Forbidden");
+        include("code403.php");
+    }
 }
 
 // Calcul du temps d'exécution

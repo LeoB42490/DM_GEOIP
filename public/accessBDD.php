@@ -6,7 +6,7 @@ function afficherTable() {
     global $bdd;
     openDatabase();
     $db = new PDO ('mysql:host=db;dbname=geoip;port=3306', DB_USER, DB_PWD);
-    foreach ($db->query('SELECT * FROM ip2location')as $row) {
+    foreach ($db->query('SELECT * FROM ipv62location')as $row) {
         print_r($row);
     }
     
