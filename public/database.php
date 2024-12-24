@@ -22,7 +22,6 @@ function isFrenchIPV4($ip_addressINT)
     $stmt = $bdd->prepare($sRequete);
     // Bind the value for the placeholder
     //$stmt->bindValue(':ip_addressINT', $ip_addressINT, PDO::PARAM_INT);
-    
     $stmt->execute([':ip_addressINT' => $ip_addressINT]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC); 
     return $result['country_code'] ?? null;

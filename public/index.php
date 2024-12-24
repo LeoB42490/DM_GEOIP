@@ -18,11 +18,10 @@ require_once($sClassPath . "autoload.php");
 
 // Récupération de l'adresse IP
 $user_ip = getUserIP(); // Mettre a la place IP française ou autre pays pour teste
-// ip française : 192.166.204.0
-// ip non française : 192.166.247.0
+// ip française : 192.166.204.0 // 0000:0000:0000:0000:0000:ffff:253c:b800
+// ip non française : 192.166.247.0 // ::ffff:0:100
 if (filter_var($user_ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) 
 {
-    //echo "ipv4";
     $user_Ip_INT = ip2Int($user_ip);
     openDatabase();
     $estFrançais = ipFrance($user_Ip_INT);
@@ -40,7 +39,6 @@ if (filter_var($user_ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4))
     $user_Ip_INT = getipnum($user_ip);
     openDatabase();
     $estFrançais = ipFrance6($user_Ip_INT);
-    echo $estFrançais;
     closeDatabase();
     if ($estFrançais)
     {
