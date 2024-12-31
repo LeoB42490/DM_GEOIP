@@ -36,9 +36,5 @@
     <div class="container">
         <h1>Bienvenue en FRANCE</h1>
     </div>
-
-    <div style="position: absolute; bottom: 10px; width: 100%; text-align: center; color: #888;">
-        <?php echo "Le temps d'exécution de la page est de : " . number_format($temps_execution, 3, '.', '') . " ms"; ?>
-    </div>
 </body>
 </html>
