@@ -15,7 +15,7 @@ function closeDatabase()
     $bdd = null;
 }
 
-function isFrenchIPV4($ip_addressINT)
+function checkFrenchIPV4($ip_addressINT)
 {
     global $bdd;
     $sRequete = 'SELECT country_code FROM ip2location WHERE ip_from <= :ip_addressINT AND ip_to >= :ip_addressINT LIMIT 1';
@@ -25,10 +25,10 @@ function isFrenchIPV4($ip_addressINT)
     return $result['country_code'] ?? null;
 }
 
-function isFrenchIPV6($ip_addressINT)
+function checkFrenchIPV6($ip_addressINT)
 {
     global $bdd;
-    $sRequete = 'SELECT country_code FROM ipv62location WHERE ip_from <= :ip_addressINT AND ip_to >= :ip_addressINT';
+    $sRequete = 'SELECT country_code FROM ipv62location WHERE ip_from <= :ip_addressINT AND ip_to >= :ip_addressINT LIMIT 1';
     $stmt = $bdd->prepare($sRequete);
     // Bind the value for the placeholder
     $stmt->bindValue(':ip_addressINT', $ip_addressINT, PDO::PARAM_INT);

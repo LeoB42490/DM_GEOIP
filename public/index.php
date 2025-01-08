@@ -7,32 +7,29 @@ $user_ip = getUserIP();
 
 if (filter_var($user_ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4))
 {
-    $user_Ip_INT = ip2Int($user_ip);
+    $user_Ip_INT = convertIPV4($user_ip);
     openDatabase();
-    $estFrançais = ipFrance($user_Ip_INT);
+    $estFrançais = getIPFrance($user_Ip_INT);
     closeDatabase();
     if ($estFrançais)
     {
-        header("Location: home.php");
-    } else
-    {
-        header("HTTP/1.0 403 Forbidden");
-        die();
-    }
-} elseif (filter_var($user_ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6))
-{
-    $user_Ip_INT = getipnum($user_ip);
-    openDatabase();
-    $estFrançais = ipFrance6($user_Ip_INT);
-    closeDatabase();
-    if ($estFrançais)
-    {
-        header("Location: home.php");
-    } else
-    {
-        header("HTTP/1.0 403 Forbidden");
-        die();
-    }
+        include './home.php';
+    } 
+    http_response_code(403);
+    die();
 }
 
+if (filter_var($user_ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6))
+{
+    $user_Ip_INT = convertIPV6($user_ip);
+    openDatabase();
+    $estFrançais = getIPFrance6($user_Ip_INT);
+    closeDatabase();
+    if ($estFrançais)
+    {
+        include './home.php';
+    } 
+    http_response_code(403);
+    die();
+}
 ?>
